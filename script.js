@@ -4,6 +4,8 @@ let currentoutput = document.querySelector('.top');
 let currentoutputbot = document.querySelector('.bot');
 let clearbtn = document.querySelector('.ac');
 let equalbtn = document.querySelector('.equal'); 
+let percentbtn = document.querySelector('.per');
+let positneg = document.querySelector('.minplus')
 let currentNum1 = '';
 let currentNum2 = '';
 let operator = '';
@@ -25,6 +27,7 @@ clearbtn.addEventListener('click', (event) => {
         }
     });
     currentoutput.textContent = 0;
+    currentoutputbot.textContent = '';
 });
 
 numInput.forEach((button) => {
@@ -43,15 +46,45 @@ numInput.forEach((button) => {
 
 opInput.forEach((button) => {
     button.addEventListener('click', (event) => {
+        if (currentNum1 == '') {
+            currentNum1 = '0';
+        }
         operator = event.target.id;
         currentoutput.textContent += ' ' +operator+ ' ';
         for(let i = 0; i < opInput.length; i++) {
             opInput[i].disabled = true;
         }
         counter = true;
-        console.log(operator);
     });
 });
+
+percentbtn.addEventListener('click', (e) => {
+    if (currentNum1 == '') {
+        currentNum1 = 0;
+    }
+    currentoutput.textContent = currentNum1;
+    currentoutputbot.textContent = operation('%');
+});
+positneg.addEventListener('click', (e) => {
+    if (currentNum1 == '') {
+        currentNum1 = 0;
+    }
+    currentoutput.textContent = currentNum1;
+    currentoutputbot.textContent = operation('+/-');
+});
+
+equalbtn.addEventListener('click', (event) => {
+    currentNum1 = 
+    currentNum2 = '';
+    operator = '';
+    counter = true;
+    opInput.forEach((button) => {
+        for(let i = 0; i < opInput.length; i++) {
+            opInput[i].disabled = false;
+        }
+    });
+}); 
+
 
 function operation(operater) {
     if (operater == '+') {
@@ -67,4 +100,11 @@ function operation(operater) {
     if (operater == '/') {
         return parseInt(currentNum1) / parseInt(currentNum2);
     }
+    if (operater == '%') {
+        return parseInt(currentNum1) / 100;
+    }
+    if (operater == '+/-') {
+        return parseInt(currentNum1) * -1;
+    }
+
 }
