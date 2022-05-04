@@ -59,9 +59,9 @@ opInput.forEach((button) => {
 });
 
 percentbtn.addEventListener('click', (e) => {
-    if (currentNum1 == '') {
-        currentNum1 = 0;
-    }
+    // if (currentNum1 == '') {
+    //     currentNum1 = '0';
+    // }
     currentoutput.textContent = currentNum1;
     currentoutputbot.textContent = operation('%');
 });
