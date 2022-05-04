@@ -6,6 +6,7 @@ let clearbtn = document.querySelector('.ac');
 let equalbtn = document.querySelector('.equal'); 
 let percentbtn = document.querySelector('.per');
 let positneg = document.querySelector('.minplus');
+let decimal = document.querySelector('.dec');
 let currentNum1 = '';
 let currentNum2 = '';
 let operator = '';
@@ -14,6 +15,18 @@ let answer = 0;
 let equaltrue = false;
 currentoutput.textContent = 0;
 currentoutputbot.textContent = '';
+
+decimal.addEventListener('click', (event) => {
+    if(counter == false) {
+        currentNum1 += '.';
+        currentoutput.textContent += '.';
+    }
+    else {
+        currentNum2 += '.';
+        currentoutput.textContent += '.';
+    }
+    decimal.disabled = true;
+});
 
 equalbtn.addEventListener('click', () => {
     answer = operation(operator);
@@ -32,6 +45,7 @@ clearbtn.addEventListener('click', (event) => {
     });
     currentoutput.textContent = 0;
     currentoutputbot.textContent = '';
+    decimal.disabled = false;
 });
 
 numInput.forEach((button) => {
@@ -41,6 +55,7 @@ numInput.forEach((button) => {
             currentNum2 = '';
             operator = '';
             counter = false;
+            decimal.disabled = false;
             currentoutput.textContent = '';
             equaltrue = false;
         }
@@ -68,7 +83,8 @@ opInput.forEach((button) => {
             opInput[i].disabled = true;
         }
         equaltrue = false;
-        counter = true;
+        counter = true;    
+        decimal.disabled = false;
     });
 });
 
@@ -105,26 +121,26 @@ equalbtn.addEventListener('click', (event) => {
 
 function operation(operater) {
     if (operater == '+') {
-        console.log((currentNum1) + (currentNum2));
-        return parseInt(currentNum1) + parseInt(currentNum2);
+        console.log(currentNum1);
+        return Number(currentNum1) + Number(currentNum2);
     }
     if (operater == '-') {
-        return parseInt(currentNum1) - parseInt(currentNum2);
+        return Number(currentNum1) + Number(currentNum2);
     }
     if (operater == '*') {
-        return parseInt(currentNum1) * parseInt(currentNum2);
+        return Number(currentNum1) + Number(currentNum2);
     }
     if (operater == '/') {
         if(currentNum2 == 0) {
             return 'BRUH';
         }
-        return parseInt(currentNum1) / parseInt(currentNum2);
+        return Number(currentNum1) + Number(currentNum2);
     }
     if (operater == '%') {
-        return parseInt(currentNum1) / 100;
+        return Number(currentNum1) / 100;
     }
     if (operater == '+/-') {
-        return parseInt(currentNum1) * -1;
+        return Number(currentNum1) * -1;
     }
 
 }
