@@ -13,6 +13,7 @@ let operator = '';
 let counter = false;
 let answer = 0;
 let equaltrue = false;
+let posneg = false;
 currentoutput.textContent = 0;
 currentoutputbot.textContent = '';
 
@@ -34,6 +35,7 @@ equalbtn.addEventListener('click', () => {
 })
 
 clearbtn.addEventListener('click', (event) => {
+    posneg = false;
     currentNum1 = '';
     currentNum2 = '';
     operator = '';
@@ -64,8 +66,13 @@ numInput.forEach((button) => {
             currentoutput.textContent = currentNum1;
         }
         else {//if (counter == 2) {
+            // if (posneg == true) {
+            //     currentoutput.textContent += '';
+            // }
+            // else {
+                currentoutput.textContent += event.target.id;
+            // }
             currentNum2 += event.target.id;
-            currentoutput.textContent += event.target.id;
         }
         
     });
@@ -96,12 +103,26 @@ percentbtn.addEventListener('click', (e) => {
     currentoutputbot.textContent = operation('%');
 });
 positneg.addEventListener('click', (e) => {
+    posneg = true;
     if (currentNum1 == '') {
         currentNum1 = 0;
     }
-    currentNum1 = operation('+/-');
-    console.log(currentNum1);
-    currentoutput.textContent = currentNum1;
+    if (currentNum2 == '') {
+        currentNum2 = 0;
+    }
+    if (counter == false) {
+        currentNum1 = operation('+/-');
+        currentoutput.textContent = currentNum1;
+    }
+    else {
+        let tempout = currentoutput.textContent.substring(0, currentoutput.textContent.length - 1);
+        tempout.slice(0, -2);
+        console.log(tempout);
+        currentoutput.textContent = tempout;
+        currentNum2 = operation('+/-');
+        currentoutput.textContent += currentNum2;
+    } 
+    //console.log(currentNum1);
     currentoutputbot.textContent = operation('+/-');
 });
 
@@ -120,27 +141,32 @@ equalbtn.addEventListener('click', (event) => {
 
 
 function operation(operater) {
+    console.log(operater);
     if (operater == '+') {
-        console.log(currentNum1);
         return Number(currentNum1) + Number(currentNum2);
     }
     if (operater == '-') {
-        return Number(currentNum1) + Number(currentNum2);
+        return Number(currentNum1) - Number(currentNum2);
     }
     if (operater == '*') {
-        return Number(currentNum1) + Number(currentNum2);
+        return Number(currentNum1) * Number(currentNum2);
     }
     if (operater == '/') {
         if(currentNum2 == 0) {
             return 'BRUH';
         }
-        return Number(currentNum1) + Number(currentNum2);
+        return Number(currentNum1) / Number(currentNum2);
     }
     if (operater == '%') {
         return Number(currentNum1) / 100;
     }
     if (operater == '+/-') {
-        return Number(currentNum1) * -1;
+        if(counter == false) {
+            return Number(currentNum1) * -1;
+        }
+        else {
+            return Number(currentNum2) * -1;
+        }
     }
 
 }
